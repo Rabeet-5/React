@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn{
+
+            background-color: darkcyan;
+            padding: 5px;
+            border: none;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <input type="text" placeholder="Enter ToDo Items" name="namea" id="uservalue" style="width: 300px;  margin: auto ;
+        align-items: center; height: 40px;">
+        <button id="useradd" onclick="addtodo ()" style="padding: 5px;
+        margin: 10px;  background-color: darkgray; text-decoration: none;">add Todo</button>
+        <button onclick="deleteall()"
+        style="padding: 5px;
+        margin: 10px;  background-color: darkgray; text-decoration: none;">Delete All</button>
+    </div>
+
+    <div>
+        <ul id="un0rderlist"></ul>
+    </div>
+    
+    
+
+
+    <script src="app.js"></script>
+</body>
+</html>
