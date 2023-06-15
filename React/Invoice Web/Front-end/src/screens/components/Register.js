@@ -1,4 +1,5 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +8,17 @@ function Register() {
     const [usersignup, setUsersignup] = useState({})
     const navigate = useNavigate()
 
+    const createNewUser =async (e)=>{
+        e.preventDefault();
+
+        try{
+            const response = await axios.post('api/users/signup',{usersignup})
+            console.log(response.data)
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
 
     return <>
         <Box sx={{ height: '100vh' }}
@@ -28,7 +40,7 @@ function Register() {
                         variant="outlined"
                         label='UserName'
                         type={'text'}
-                        color="warning"
+                        color="primary"
                         onChange={(e) => setUsersignup(
                             { ...usersignup, username: e.target.value }
                         )}
@@ -42,7 +54,7 @@ function Register() {
                         variant="outlined"
                         label='E-mail'
                         type={'email'}
-                        color="warning"
+                        color="primary"
                         onChange={(e) => setUsersignup({
                             ...usersignup, email: e.target.value
                         })}
@@ -56,7 +68,7 @@ function Register() {
                         variant="outlined"
                         label='Password'
                         type={'password'}
-                        color="warning"
+                        color="primary"
                         onChange={(e) => setUsersignup({
                             ...usersignup, password: e.target.value
                         })}
@@ -68,7 +80,8 @@ function Register() {
 
                     <Button variant="contained"
                         className="m-3 "
-                        color="warning"
+                        color="primary"
+                        onClick={createNewUser}
                         
                     >
                         Register 
