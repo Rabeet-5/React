@@ -5,17 +5,24 @@ import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
 
-    const [user, setUser] = useState({});
-    const navigate = useNavigate();
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const navigate = useNavigate()
+
 
     const loginUser = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get('/api/users/login', {user})
+            const response = await axios.get('/api/users/login', {
+                params:{
+                    email,
+                    password
+                }
+             })
             console.log(response.data)
             navigate('/home')
         }
-        catch(e){
+        catch (e) {
             console.log(e)
         }
     }
@@ -35,9 +42,8 @@ const LoginPage = () => {
                         label='Enter E-mail'
                         type={"email"}
                         color="primary"
-                        onChange={(e) => {
-                            setUser({ ...user, email: e.target.value })
-                        }}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </Box>
 
@@ -46,11 +52,10 @@ const LoginPage = () => {
                         variant="outlined"
                         label='Enter Password'
                         type={"password"}
+                        value={password}
                         color="primary"
-                        onChange={(e) => {
-                            setUser({ ...user, password: e.target.value })
-                        }}
-                    />
+                        onChange={(e) => setPassword(e.target.value)
+                        } />
                 </Box>
 
                 <Box className='p-2 text-center'>

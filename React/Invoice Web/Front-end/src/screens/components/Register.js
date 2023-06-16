@@ -5,14 +5,17 @@ import { useNavigate } from "react-router-dom";
 
 function Register() {
 
-    const [usersignup, setUsersignup] = useState({})
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('')
+    const [name,setName] = useState('')
+    // const [usersignup, setUsersignup] = useState({})
     const navigate = useNavigate()
 
     const createNewUser =async (e)=>{
         e.preventDefault();
 
         try{
-            const response = await axios.post('api/users/signup',{usersignup})
+            const response = await axios.post('api/users/signup',{name,email,password})
             console.log(response.data)
         }
         catch(e){
@@ -40,10 +43,9 @@ function Register() {
                         variant="outlined"
                         label='UserName'
                         type={'text'}
+                        value={name}
                         color="primary"
-                        onChange={(e) => setUsersignup(
-                            { ...usersignup, username: e.target.value }
-                        )}
+                        onChange={(e) =>setName(e.target.value) }
                     />
 
                 </Box>
@@ -54,10 +56,9 @@ function Register() {
                         variant="outlined"
                         label='E-mail'
                         type={'email'}
+                        value={email}
                         color="primary"
-                        onChange={(e) => setUsersignup({
-                            ...usersignup, email: e.target.value
-                        })}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
 
                 </Box>
@@ -69,9 +70,8 @@ function Register() {
                         label='Password'
                         type={'password'}
                         color="primary"
-                        onChange={(e) => setUsersignup({
-                            ...usersignup, password: e.target.value
-                        })}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
 
                 </Box>
