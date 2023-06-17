@@ -1,9 +1,10 @@
 const Products = require('../Models/productsModel')
 const ErrorHandler = require('../utils/errorHandler')
-const catchAsyncError = require('../middleware/asyncError')
+const catchAsyncError = require('../middleware/asyncError');
+const ApiFeatures = require('../utils/apiFeatures');
 
 //Create-Products From Admin Panel
-exports.createProduct = async (req, res, next) => {
+exports.createProduct = catchAsyncError(async (req, res, next) => {
 
     const products = await Products.create(req.body)
 
@@ -11,21 +12,22 @@ exports.createProduct = async (req, res, next) => {
         success: true,
         products
     })
-}
+});
 
 //Get all Products
-exports.getAllProducts = async (req, res) => {
+exports.getAllProducts = catchAsyncError(async (req, res) => {
 
-    const products = await Products.find()
+     const apiFeatures = new ApiFeatures(Products.find(),req.query).search().filter()
+    const products = await apiFeatures.query;
     res.status(200).json({
         success: true,
         products
     })
 
-}
+})
 
 //Get Single Product Details
-exports.getProductDetails = async (req, res, next) => {
+exports.getProductDetails = catchAsyncError( async (req, res, next) => {
 
     const product_id = req.params.id;
     const product = await Products.findById(product_id)
@@ -45,9 +47,10 @@ exports.getProductDetails = async (req, res, next) => {
         })
     }
 }
+);
 
 //Update Products From Admin Panel
-exports.updateProducts = async (req, res, next) => {
+exports.updateProducts = catchAsyncError(async (req, res, next) => {
     try {
         const products = await Products.findById(req.params.id);
         if (!products) {
@@ -69,17 +72,18 @@ exports.updateProducts = async (req, res, next) => {
         // Handle any potential errors here
         next(error);
     }
-};
+}
+);
 
 //Delete Products From Admin Panel
-exports.deleteProducts = async (req, res, next) => {
+exports.deleteProducts = catchAsyncError(async (req, res, next) => {
 
     const product_id = req.params.id;
     const product = await Products.findById(req.params.id)
     try {
         if (!product) {
 
-            return next(new ErrorHandler('Product Not Found',404))
+            return next(new ErrorHandler('Product Not Found', 404))
         }
 
         await product.deleteOne({ _id: product_id })
@@ -97,3 +101,4 @@ exports.deleteProducts = async (req, res, next) => {
         })
     }
 }
+);
