@@ -13,12 +13,7 @@ const LoginPage = () => {
     const loginUser = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get('/api/users/login', {
-                params:{
-                    email,
-                    password
-                }
-             })
+            const response = await axios.get('http://localhost:5000/api/users/login', {email,password})
             console.log(response.data)
             navigate('/home')
         }

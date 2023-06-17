@@ -37,7 +37,7 @@ const getUser = async (req, res) => {
     if (!user) {
       res.status(404).send({ message: 'User not found' });
     } else {
-      res.status(200).send({ message: 'User found' });
+      res.status(200).send({ message: 'User founded and Logged in' });
     }
   } catch (error) {
     res.status(500).send({ message: 'Server error' });

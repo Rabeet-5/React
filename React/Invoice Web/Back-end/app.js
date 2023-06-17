@@ -6,7 +6,7 @@ const signup = require('./routes/signupRoute');
 const login  = require('./routes/loginroute')
 
 app.use(cors())
+app.use('/api/users',signup)
 app.use('/api/users',login )
-app.use('/api',signup)
 
 module.exports = app;
