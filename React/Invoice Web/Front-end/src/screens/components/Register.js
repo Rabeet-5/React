@@ -15,8 +15,9 @@ function Register() {
         e.preventDefault();
 
         try{
-            const response = await axios.post('api/users/signup',{name,email,password})
+            const response = await axios.post('http://localhost:5000/api/users/signup',{name,email,password})
             console.log(response.data)
+            navigate('/')
         }
         catch(e){
             console.log(e)

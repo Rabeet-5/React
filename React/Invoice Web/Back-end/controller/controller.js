@@ -34,7 +34,7 @@ const getUser = async (req, res) => {
   try {
     const user = await signupModel.findOne(obj);
 
-    if (!user) {
+    if (user) {
       res.status(404).send({ message: 'User not found' });
     } else {
       res.status(200).send({ message: 'User founded and Logged in' });
