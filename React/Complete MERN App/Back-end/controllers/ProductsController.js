@@ -14,10 +14,13 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
     })
 });
 
+
 //Get all Products
 exports.getAllProducts = catchAsyncError(async (req, res) => {
 
-     const apiFeatures = new ApiFeatures(Products.find(),req.query).search().filter()
+    const productPerPage = 5;
+
+    const apiFeatures = new ApiFeatures(Products.find(), req.query).search().filter().pagination(productPerPage)
     const products = await apiFeatures.query;
     res.status(200).json({
         success: true,
@@ -26,8 +29,9 @@ exports.getAllProducts = catchAsyncError(async (req, res) => {
 
 })
 
+
 //Get Single Product Details
-exports.getProductDetails = catchAsyncError( async (req, res, next) => {
+exports.getProductDetails = catchAsyncError(async (req, res, next) => {
 
     const product_id = req.params.id;
     const product = await Products.findById(product_id)
@@ -48,6 +52,7 @@ exports.getProductDetails = catchAsyncError( async (req, res, next) => {
     }
 }
 );
+
 
 //Update Products From Admin Panel
 exports.updateProducts = catchAsyncError(async (req, res, next) => {
@@ -74,6 +79,7 @@ exports.updateProducts = catchAsyncError(async (req, res, next) => {
     }
 }
 );
+
 
 //Delete Products From Admin Panel
 exports.deleteProducts = catchAsyncError(async (req, res, next) => {

@@ -13,7 +13,7 @@ const createUser = async (req, res) => {
     else {
       Signup.create(obj)
         .then((newUser) => {
-          res.send({ message: "New User Created" , newUser}).status(200);
+          res.send({ message: "New User Created", newUser }).status(200);
         })
         .catch((e) => {
           res.send({ message: "Some fields ar missing", e }).status(404)
@@ -43,5 +43,21 @@ const getUser = async (req, res) => {
     res.status(500).send({ message: 'Server error' });
   }
 };
+
+
+//Logout Function 
+// const logoutUser = (req, res) => {
+//   try {
+//     // Clear the session and remove the user's authentication status
+//     req.session.destroy((error) => {
+//       if (error) {
+//         console.error("Error destroying session:", error);
+//       }
+//       res.status(200).send({ message: "User logged out successfully" });
+//     });
+//   } catch (error) {
+//     res.status(500).send({ message: "Server error" });
+//   }
+// };
 
 module.exports = { createUser, getUser };

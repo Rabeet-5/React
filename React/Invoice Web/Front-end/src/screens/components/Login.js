@@ -15,7 +15,7 @@ const LoginPage = () => {
         try {
             const response = await axios.get('http://localhost:5000/api/users/login', {email,password})
             console.log(response.data)
-            navigate('/')
+            navigate('/dashboard/*')
         }
         catch (e) {
             console.log(e)
