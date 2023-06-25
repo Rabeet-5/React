@@ -78,18 +78,18 @@ exports.forgetPassword = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler('User Not Found', 404))
     }
 
-    const resetToken = findUser.getResetPassToken()
+    const resetToken = findUser.getResetPasswordToken();
     await findUser.save({ validateBeforeSave: false })
 
     //pasword url
-    const resetPasswordUrl = `${req.protocol}://${req.get('host')}/api/v1/password/reset/${resetToken}`
+    const resetPasswordUrl = `${req.protocol}://${req.get('host')}/password/reset/${resetToken}`
     const message = `your Password reset token is :- \n\n ${resetPasswordUrl} \n\If you have not requested this email
         then please ignore it  `
 
     try {
         await sendEmail({
-            user:findUser.email,
-            subject:'Ecommerce Website',
+            email:findUser.email,
+            subject:'Ecommerce password recovery',
             message,
         })
 
@@ -103,6 +103,6 @@ exports.forgetPassword = catchAsyncError(async (req, res, next) => {
         findUser.resetPasswordExpire = undefined;
         await findUser.save({ validateBeforeSave: false })
 
-        return new(new ErrorHandler(error.message,500))
+        return next(new ErrorHandler(error.message,500))
     }
 })
