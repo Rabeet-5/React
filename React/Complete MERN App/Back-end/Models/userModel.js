@@ -54,7 +54,7 @@ userSchema.pre('save', async function (next) {
         next()
     }
 
-    this.password = await bcrypt.hash(this.password, 10)
+    this.password = bcrypt.hash(this.password, 10)
 })
 
 //Jason Web Token 
@@ -69,10 +69,10 @@ userSchema.methods.JWTToken = function () {
 
 //Comparing Passwords of User
 
-userSchema.methods.comparePassword = async function (enteredPass) {
+userSchema.methods.comparePassword = async function (enteredPassword) {
 
-    return await bcrypt.compare(enteredPass, this.password)
-
+    return await bcrypt.compare(enteredPassword,this.password)
+    
 }
 
 //Generating Password Reset Token

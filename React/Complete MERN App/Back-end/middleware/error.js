@@ -11,12 +11,12 @@ module.exports = {
       err = new ErrorHandler(message, 400);
     }
 
-    //Mongoose duplicate key error
-    if(err.code = 11000){
-      const message = `Duplicate ${Object.keys(err.keyValue())} Entered`;
-      err = new ErrorHandler(message,400)
+    // //Mongoose duplicate key error
+    // if(err.code = 11000){
+    //   const message = `Duplicate ${Object.keys(err.keyValue)} Entered`;
+    //   err = new ErrorHandler(message,400)
 
-    }
+    // }
 
     //Wrong JWT error
     if (err.name === 'JsonWebTokenError') {

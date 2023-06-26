@@ -117,14 +117,14 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 
     const user = User.findOne({
         resetPasswordToken,
-        resetPasswordExpire:{$gt:Date.now()}
+        resetPasswordExpire: { $gt: Date.now() }
     })
 
     if (!user) {
         return next(new ErrorHandler('Reset password Token is invalid or has been expired', 400))
     }
 
-    if(req.body.password !== req.body.confirmPassword){
+    if (req.body.password !== req.body.confirmPassword) {
         return next(new ErrorHandler('Password does not match', 400))
     }
 
@@ -133,6 +133,48 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
     user.resetPasswordExpire = undefined;
 
     await user.save();
-    sendToken(user,200,res)
-    
+    sendToken(user, 200, res)
+
+})
+
+//Get User details
+
+exports.getUserDetails = catchAsyncError(async (req, res, next) => {
+
+    const user = await User.findById(req.user.id)
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+//Update User Password
+
+exports.updateUserPasssword = catchAsyncError(async (req, res, next) => {
+
+    const user = await User.findById(req.user.id).select("+password");
+    console.log(user)
+
+    const isPasswordMatch = await user.comparePassword(req.body.oldPassword)
+  
+    if (!isPasswordMatch) {
+      return next(new ErrorHandler("Old password is incorrect", 400));
+    }
+  
+    if (req.body.newPassword !== req.body.confirmPassword) {
+      return next(new ErrorHandler("password does not match", 400));
+    }
+  
+    user.password = req.body.newPassword;
+  
+    await user.save();
+  
+    sendToken(user, 200, res);
+
+
+    res.status(200).json({
+        success: true,
+        user
+    })
 })
