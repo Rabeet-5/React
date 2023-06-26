@@ -88,14 +88,14 @@ exports.forgetPassword = catchAsyncError(async (req, res, next) => {
 
     try {
         await sendEmail({
-            email:findUser.email,
-            subject:'Ecommerce password recovery',
+            email: findUser.email,
+            subject: 'Ecommerce password recovery',
             message,
         })
 
         res.status(200).json({
-            message:`email send to ${findUser.email} successfully`,
-            success:true
+            message: `email send to ${findUser.email} successfully`,
+            success: true
         })
     } catch (error) {
 
@@ -103,6 +103,36 @@ exports.forgetPassword = catchAsyncError(async (req, res, next) => {
         findUser.resetPasswordExpire = undefined;
         await findUser.save({ validateBeforeSave: false })
 
-        return next(new ErrorHandler(error.message,500))
+        return next(new ErrorHandler(error.message, 500))
     }
+})
+
+
+//Reset password Token
+
+exports.resetPassword = catchAsyncError(async (req, res, next) => {
+
+    //doing token hash
+    const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+
+    const user = User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire:{$gt:Date.now()}
+    })
+
+    if (!user) {
+        return next(new ErrorHandler('Reset password Token is invalid or has been expired', 400))
+    }
+
+    if(req.body.password !== req.body.confirmPassword){
+        return next(new ErrorHandler('Password does not match', 400))
+    }
+
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+    sendToken(user,200,res)
+    
 })
