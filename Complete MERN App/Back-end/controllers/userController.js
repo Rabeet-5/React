@@ -154,10 +154,11 @@ exports.getUserDetails = catchAsyncError(async (req, res, next) => {
 exports.updateUserPasssword = catchAsyncError(async (req, res, next) => {
 
     const user = await User.findById(req.user.id).select("+password");
-    console.log(user)
+    // console.log(user.password,'Password in Database');
 
     const isPasswordMatch = await user.comparePassword(req.body.oldPassword)
-  
+    // console.log(isPasswordMatch,'oldpassword')
+
     if (!isPasswordMatch) {
       return next(new ErrorHandler("Old password is incorrect", 400));
     }
@@ -177,4 +178,25 @@ exports.updateUserPasssword = catchAsyncError(async (req, res, next) => {
         success: true,
         user
     })
+})
+
+
+//Update User Profile
+
+exports.updateProfile = catchAsyncError(async (req, res, next) => {
+
+    const newUser = {
+        name:req.body.name,
+        email:req.body.email
+    }
+
+    const user = await User.findByIdAndUpdate(req.user.id,newUser,{
+        new:true,
+        runValidators:true,  
+    })
+
+    res.status(200).json({
+        success:true
+    })
+
 })
