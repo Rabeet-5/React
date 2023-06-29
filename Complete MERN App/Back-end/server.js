@@ -20,7 +20,7 @@ const server = app.listen(process.env.PORT, () => {
     console.log(`Server is Runing on http://localhost:${process.env.PORT}`)
 })
 
-//unhadled Promise rejections
+//unhandled Promise rejections
 
 process.on('unhandledRejection', err => {
     console.log(`Error ${err.message}`)
