@@ -1,7 +1,10 @@
 const express = require('express');
+const cors = require('cors')
 const { getAllProducts, createProduct, updateProducts, deleteProducts, getProductDetails, createProductReview, deleteReview, getAllreviewsOfProduct } = require('../controllers/ProductsController');
 const { isUserAuthenticated, authorizeRoles } = require('../middleware/authentication');
 const router = express.Router();
+
+router.use(cors());
 
 
 router.route('/product').get(getAllProducts);
