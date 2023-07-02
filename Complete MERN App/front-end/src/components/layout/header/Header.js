@@ -1,6 +1,7 @@
 import React from 'react';
 import { ReactNavbar } from "overlay-navbar";
 import logo from '../../../images/logo.png'
+import { Navbar, Nav, Container } from 'react-bootstrap';
 
 
 const options = {
@@ -34,12 +35,17 @@ const options = {
     searchIconColorHover: "#eb4034",
     cartIconColorHover: "#eb4034",
     cartIconMargin: "1vmax",
-  };
+};
 
 const Header = () => {
 
     return <>
-        <ReactNavbar  {...options} />
+
+       
+
+
+
+        <ReactNavbar  {...options}  />
     </>
 
 };

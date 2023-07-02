@@ -73,10 +73,10 @@ const productSchema = new mongoose.Schema({
         }
     }],
 
-    createdTime:{
-        type:Date,
-        required:Date.now
-    },
+    // createdTime:{
+    //     type:Date,
+    //     required:Date.now
+    // },
 
     user:{
         type:mongoose.Schema.ObjectId,

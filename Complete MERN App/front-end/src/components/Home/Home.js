@@ -5,7 +5,7 @@ import MetaData from "../layout/MetaData";
 import { getProducts } from '../../actions/productAction'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from "../layout/loader/Loader";
-
+import Header from "../layout/header/Header";
 
 
 
@@ -14,7 +14,9 @@ const Home = () => {
 
     const dispatch = useDispatch();
 
-    const { loading, error, products, productsCount } = useSelector(state => state.products)
+    const { loading, error, products, productsCount } = useSelector(
+        state => state.products
+    )
 
     useEffect(() => {
 
@@ -25,7 +27,7 @@ const Home = () => {
 
     return <>
 
-        {loading ? <Loader /> : <>
+        {loading ?  <Loader /> : <>
 
             <MetaData title='Ecommerce ' />
 
@@ -43,11 +45,8 @@ const Home = () => {
             <h2 className="homeHeading">Featured Products</h2>
 
             <div className="container" id="container">
-
                 {products && products.map(product => (
-
                     <Product product={product} key={product._id} />
-
                 ))}
 
             </div>
