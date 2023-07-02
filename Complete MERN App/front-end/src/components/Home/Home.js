@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import './home.css'
-import Product from "./Product";
 import MetaData from "../layout/MetaData";
 import { getProducts } from '../../actions/productAction'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from "../layout/loader/Loader";
 import Header from "../layout/header/Header";
+import ProductCard from "./ProductCard";
 
 
 
@@ -46,7 +46,7 @@ const Home = () => {
 
             <div className="container" id="container">
                 {products && products.map(product => (
-                    <Product product={product} key={product._id} />
+                    <ProductCard product={product} key={product._id} />
                 ))}
 
             </div>
