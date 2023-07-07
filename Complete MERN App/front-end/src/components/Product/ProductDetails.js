@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../actions/productAction";
@@ -16,7 +15,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(getProductDetails(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, ]);
 
   const options = {
     edit: false,

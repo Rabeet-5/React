@@ -9,12 +9,12 @@ import {
     CLEAR_ERRORS
 } from '../constants/productConstants'
 
-const getProducts = (keyword='',currentPage=1) => async (dispatch) => {
+const getProducts = (keyword = '', currentPage = 1, price = [0, 25000]) => async (dispatch) => {
 
     try {
 
         dispatch({ type: ALL_PRODUCT_REQUEST });
-        const { data } = await axios.get(`http://localhost:5000/api/v1/product?keyword=${keyword}&page=${currentPage}`);
+        const { data } = await axios.get(`http://localhost:5000/api/v1/product?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}`);
 
         dispatch({
             type: ALL_PRODUCT_SUCCESS,
@@ -67,5 +67,5 @@ const clearErrors = () => async (dispatch) => {
 }
 
 export {
-    getProducts,clearErrors,getProductDetails
+    getProducts, clearErrors, getProductDetails
 }

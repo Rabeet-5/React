@@ -26,7 +26,7 @@ export const productReducer = (
                     loading: false,
                     products:action.payload.products,
                     productsCount: action.payload.productsCount,
-                    productPerPage:action.payload.productPerPage
+                    productPerPage:action.payload.productPerPage,
                 }
 
             case ALL_PRODUCT_FAIL:

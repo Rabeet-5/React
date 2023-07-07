@@ -22,8 +22,12 @@ exports.getAllProducts = catchAsyncError(async (req, res) => {
     const apiFeatures = new ApiFeatures(Products.find(), req.query)
         .search()
         .filter()
-        .pagination(productPerPage);
+        .pagination()
+
+    apiFeatures.pagination(productPerPage);
+
     const products = await apiFeatures.query;
+
     res.status(200).json({
         success: true,
         products,
@@ -34,7 +38,7 @@ exports.getAllProducts = catchAsyncError(async (req, res) => {
 
 //Get Single Product Details
 exports.getProductDetails = catchAsyncError(async (req, res, next) => {
-    
+
     const product = await Products.findById(req.params.id);
     try {
         if (!product) {
