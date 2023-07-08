@@ -1,0 +1,135 @@
+.loginSignupContainer {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(231, 231, 231);
+}
+
+.loginSignupBox {
+    width: 25vw;
+    height: 70vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: white;
+}
+
+.loginSignupToggle {
+    display: flex;
+    height: 3vmax;
+}
+
+.loginSignupToggle>p {
+    color: rgba(0, 0, 0, 0.678);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    font: 400 1.2vmax 'Roboto';
+    transition: all 0.5s;
+    width: 100%;
+}
+
+.loginSignupToggle>p:hover {
+    color: tomato;
+}
+
+.loginSignupBox > div > button {
+    background-color: tomato;
+    height: 3px;
+    width: 50%;
+    border: none;
+    transform: all 0.5s;
+}
+
+.loginForm,
+.signupForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 2vmax;
+    justify-content:space-evenly;
+    height: 70%;
+    transition: all 0.5s;
+
+}
+
+.loginForm > div,
+.signupForm>div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.loginForm > div >input,
+.signupForm>div >input{
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.278);
+    border-radius: 4px;
+    font: 300 1vmax cursive;
+    outline: none;
+} 
+
+.loginForm > div >svg,
+.signupForm>div >svg{
+    position: absolute;
+    transform: translateX(1vmax);
+    font-size: 1.6vmax;
+    color: rgba(0, 0, 0, 0.678);
+}
+
+.loginForm > a{
+    color: rgba(0, 0, 0, 0.678);
+    text-decoration: none;
+    align-self: flex-end;
+    transition: all 0.5s;
+    font: 500 0.9vmax cursive;
+}
+
+.loginForm > a:hover{
+    color: black;
+}
+
+.loginBtn,
+.signupBtn {
+    border: none;
+    background-color: tomato;
+    color: white;
+    font: 300 1vmax Roboto;
+    width: 50%;
+    padding: 0.8vmax;
+    cursor: pointer;
+    transition: all 0.5s;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+}
+
+.loginBtn:hover,
+.signupBtn:hover{
+background-color: rgba(179, 46, 66);
+}
+
+.shiftToLeft{
+    transform: translateX(-100%);
+}
+
+.shiftToNeutral{
+    transform: translateX(0%);
+}
+
+.shiftToNeutralForm{
+    transform: translateX(0%) translateY(-100%);
+}
+
+.shiftToRight{
+    transform: translateX(100%);
+}

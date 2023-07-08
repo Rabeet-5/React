@@ -63,7 +63,7 @@ const Products = ({ match }) => {
                 <Slider
                     aria-label="Temperature"
                     defaultValue={price}
-                    color="warning"
+                    color="primary"
                     onChange={priceHandler}
                     valueLabelDisplay="auto"
                     aria-labelledby="range-slider"
@@ -90,7 +90,7 @@ const Products = ({ match }) => {
                         }}
                         aria-labelledby="continuous-slider"
                         valueLabelDisplay="auto"
-                        color="warning"
+                        color="primary"
                         min={0}
                         max={5}
                     />
