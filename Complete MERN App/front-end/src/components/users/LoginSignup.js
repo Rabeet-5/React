@@ -1,13 +1,17 @@
-import React, { Fragment, useRef, useState } from "react"
+import React, { Fragment, useEffect, useRef, useState } from "react"
 import Loader from '../layout/loader/Loader'
+import FaceRoundedIcon from '@mui/icons-material/FaceRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { Link } from "react-router-dom";
 import './loginSignup.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { Login, clearErrors } from '../../actions/userAction'
 
+const LoginSignup = () => {
 
-const Login = () => {
+    const dispatch = useDispatch()
+    const {loading,error} = useSelector((state)=>state.user)
 
     const loginTab = useRef(null);
     const registerTab = useRef(null);
@@ -23,8 +27,12 @@ const Login = () => {
     });
 
     const { name, email, password } = user;
-    const [avatar,setAvatar] = useState();
-    const [avatarPreview,setAvatarPreview] = useState('/Profile.png')
+    const [avatar, setAvatar] = useState();
+    const [avatarPreview, setAvatarPreview] = useState('/Profile.png')
+
+    useEffect(()=>{
+        // dispatch(clearErrors())
+    },[dispatch,loading])
 
 
     const switchTabs = (e, tab) => {
@@ -46,8 +54,10 @@ const Login = () => {
         }
     };
 
-    const loginSubmit = () => {
-        console.log('Login form submitted')
+    const loginSubmit = (e) => {
+        // console.log('Login form submitted')
+        e.preventDefault()
+        dispatch(Login(loginemail, loginpassword))
 
     };
 
@@ -64,11 +74,28 @@ const Login = () => {
         console.log('Signup Form submit')
     };
 
-    const registerDataChange = () =>{
+    const registerDataChange = (e) => {
+
+        if (e.target.name === 'avatar') {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setAvatarPreview(reader.result);
+                    setAvatar(reader.result)
+                }
+            }
+
+            reader.readAsDataURL(e.target.files[0]);
+        }
+        else {
+            setUser({ ...user, [e.target.name]: e.target.value })
+        }
 
     };
 
     return <Fragment>
+        {loading ? <Loader /> : <Fragment>
         <div className="loginSignupContainer">
             <div className="loginSignupBox">
                 <div>
@@ -112,7 +139,7 @@ const Login = () => {
                     onSubmit={registerSubmit}
                 >
                     <div className="signupName">
-                        <AccountCircleRoundedIcon />
+                        <FaceRoundedIcon />
                         <input
                             type="text"
                             placeholder="Name"
@@ -128,6 +155,7 @@ const Login = () => {
                         <input
                             type="email"
                             placeholder="E-mail"
+                            name='email'
                             required
                             value={email}
                             onChange={registerDataChange}
@@ -140,6 +168,7 @@ const Login = () => {
                             type="password"
                             placeholder="Password"
                             required
+                            name='password'
                             value={password}
                             onChange={registerDataChange}
                         />
@@ -166,9 +195,9 @@ const Login = () => {
             </div>
         </div>
     </Fragment>
-
-
+}
+    </Fragment> 
 
 }
 
-export { Login };
+export { LoginSignup };
