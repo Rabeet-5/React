@@ -3,7 +3,7 @@ import Loader from '../layout/loader/Loader'
 import FaceRoundedIcon from '@mui/icons-material/FaceRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './loginSignup.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { Login, clearErrors } from '../../actions/userAction'
@@ -11,8 +11,9 @@ import { Login, clearErrors } from '../../actions/userAction'
 const LoginSignup = () => {
 
     const dispatch = useDispatch()
-    const {loading,error} = useSelector((state)=>state.user)
+    const {loading,error,isAuthenticated} = useSelector((state)=>state.user)
 
+    const Navigate = useNavigate();
     const loginTab = useRef(null);
     const registerTab = useRef(null);
     const switcherTab = useRef(null);
@@ -32,6 +33,10 @@ const LoginSignup = () => {
 
     useEffect(()=>{
         // dispatch(clearErrors())
+
+        if(isAuthenticated){
+            Navigate('/')
+        }
     },[dispatch,loading])
 
 
