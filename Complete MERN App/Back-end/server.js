@@ -1,6 +1,7 @@
 const app = require('./app')
 const dotenv = require('dotenv')
-const connectDataBase = require('./Config/database')
+const connectDataBase = require('./Config/database');
+const cloudinary = require('cloudinary');
 
 //Handling exception Error
 process.on('uncaughtException', err => {
@@ -15,6 +16,12 @@ dotenv.config({ path: 'Back-end/Config/config.env' })
 
 // Database Connection
 connectDataBase()
+
+cloudinary.config({
+    cloud_name:process.env.CLOUDINARY_NAME,
+    api_key:process.env.CLOUDINARY_API_KEY,
+    api_secret:process.env.CLOUDINARY_API_SECRET,
+})
 
 const server = app.listen(process.env.PORT, () => {
     console.log(`Server is Runing on http://localhost:${process.env.PORT}`)

@@ -6,7 +6,7 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { Link, useNavigate } from "react-router-dom";
 import './loginSignup.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { Login, clearErrors } from '../../actions/userAction'
+import {  Login,register } from '../../actions/userAction'
 
 const LoginSignup = () => {
 
@@ -29,14 +29,15 @@ const LoginSignup = () => {
 
     const { name, email, password } = user;
     const [avatar, setAvatar] = useState();
-    const [avatarPreview, setAvatarPreview] = useState('/Profile.png')
+    const [avatarPreview, setAvatarPreview] = useState('/default-avatar.png')
 
     useEffect(()=>{
         // dispatch(clearErrors())
 
         if(isAuthenticated){
-            Navigate('/')
+            Navigate('/account')
         }
+        
     },[dispatch,loading])
 
 
@@ -67,16 +68,16 @@ const LoginSignup = () => {
     };
 
     const registerSubmit = (e) => {
-        e.preventDefault()
-
+        e.preventDefault();
+    
         const myForm = new FormData();
-
         myForm.set('name', name);
-        myForm.set('E-mail', email);
-        myForm.set('Password', password);
-        myForm.set('avatar', avatar);
-
-        console.log('Signup Form submit')
+        myForm.set('email', email); 
+        myForm.set('password', password);
+        myForm.append('avatar', avatar); 
+    
+        dispatch(register(myForm));
+        console.log('Signup Form submit');
     };
 
     const registerDataChange = (e) => {
